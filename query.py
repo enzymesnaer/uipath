@@ -1,7 +1,10 @@
 import glob
+import json
+import os
 import re
 import sys
 
+import requests
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.chains import ConversationalRetrievalChain
@@ -23,56 +26,57 @@ def insert_line_breaks(input_string, words_per_line=25):
 
 
 def process_pdf(file_path, query):
-    loaders = [PyPDFLoader(file_path)]
-    docs = []
-    for loader in loaders:
-        docs.extend(loader.load())
+    try:
+        loaders = [PyPDFLoader(file_path)]
+        docs = []
+        for loader in loaders:
+            docs.extend(loader.load())
 
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=50)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=400, chunk_overlap=50)
 
-    texts = text_splitter.split_documents(docs)
+        texts = text_splitter.split_documents(docs)
 
-    # Embeddings into Faiss vector DB
-    DB_FAISS_PATH = 'vectorstore/db_faiss'
-    # all-MiniLM-L6-v2
-    embeddings = HuggingFaceEmbeddings(model_name='sentence-transformers/paraphrase-MiniLM-L6-v2',
-                                       model_kwargs={'device': 'cpu'})
+        #========================================================================================
 
-    db = FAISS.from_documents(texts, embeddings)
-    db.save_local(DB_FAISS_PATH)
+        s = requests.Session()
 
-    llm = CTransformers(
-        model="llama-2-7b-chat.ggmlv3.q8_0.bin",
-        model_type="llama",
-        max_new_tokens=512,
-        temperature=0.9)
+        api_base = "https://api.endpoints.anyscale.com/v1"
+        token =  'esecret_++++bylmr1args2fi4w++++++1dgzvnxk++++++t64'
+        url = f"{api_base}/chat/completions"
+        body = {
+            "model": "meta-llama/Llama-2-70b-chat-hf",
+            "messages": [{"role": "system", "content": f"""{texts}"""},
+                         {"role": "user", "content": query}],
+            "temperature": 0.5
+        }
 
-    qa_chain = ConversationalRetrievalChain.from_llm(
-        llm,
-        db.as_retriever(search_kwargs={'k': 2}),
-        return_source_documents=True)
+        result = ''
+        with s.post(url, headers={"Authorization": f"Bearer {token}"}, json=body) as resp:
+            print(resp.json())
+            result = json.load(resp.json())
+            result = result['choices']['message']['content']
 
-    chat_history = []
+        #========================================================================================
 
-    result = qa_chain({'question': query, 'chat_history': chat_history})
-    chat_history.append((query, result['answer']))
-    answer = result['answer']
-    print(" " + query)
-    print(answer + "\n\n")
+        chat_history = []
+        chat_history.append((query, result))
 
-    file = file_path.split("\\")[-1]
-    txt_file_path = f'C:\\MVP\\output\\query_result.txt'
+        txt_file_path = f'C:\\MVP\\output\\query_result.txt'
 
-    with open(txt_file_path, 'w') as text_file:
-        # Write the content to the file
-        text_file.write(answer)
-
+        with open(txt_file_path, 'w') as text_file:
+            # Write the content to the file
+            text_file.write(result)
+    except Exception as e:
+        print(e)
 
 if __name__ == "__main__":
-    query = sys.argv[1]
-    pdf_regex = re.compile(r'.*\.pdf$', re.IGNORECASE)
-    pdf_files = [file for file in glob.glob('C:\\MVP\\dropbox\\' + '*') if pdf_regex.match(file)]
+    try:
+        query = sys.argv[1]
+        pdf_regex = re.compile(r'.*\.pdf$', re.IGNORECASE)
+        pdf_files = [file for file in glob.glob('C:\\MVP\\dropbox\\' + '*') if pdf_regex.match(file)]
 
-    for pdf_file in pdf_files:
-        print(pdf_file)
-        process_pdf(pdf_file, query)
+        for pdf_file in pdf_files:
+            print(pdf_file)
+            process_pdf(pdf_file, query)
+    except Exception as e:
+        print(e)
