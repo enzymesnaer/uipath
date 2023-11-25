@@ -1,0 +1,40 @@
+import requests
+# Replace with your API token
+api_token = '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'
+# Set the API endpoint URL
+url = 'https://jbq6qfqbjc.execute-api.us-east-1.amazonaws.com/dev/llama-2-13b'
+# Set the headers
+headers = {
+'Authorization': f'Bearer {api_token}',
+'Content-Type': 'application/json'
+}
+# Define the request payload
+payload = {
+     "model": "llama",
+     "prompt": {
+        "inputs": [
+            [
+                {
+                    "role": "user",
+                    "content": "10 new wins and 15 go-lives in FY 2023• Highlights:◦ Services more than 35% of the world’s banking population•8 out of top 10 custodian and asset management firms run on TCS BaNCS◦ More than 100 milliontransactions run on TCS BaNCS Cloud daily◦ Records 10 million new trades per day (peak) across 100+countries◦ Offers ready market connectivity to 45+ local markets for settlements◦ Services over 30 millionlife, annuity and pension policies and 135 million property and casualty policies across the globe• AIpowered enterprise digital twin covering customer, product and process to help business leaders simulate andoptimize enterprise decisions, predict and proactively manage outcomes• Helps businesses achieve: ◦ Upto10-15% increase in revenue◦ Reduced revenue leakage◦ Upto 2X faster time to market◦ Upto 15% reduction incycle time◦ Enhanced customer experience◦ Minimized waste• 10 new wins and 7 go-lives in FY 2023• AI poweredunified commerce platform to orchestrate unified omnichannel customer journeys and help businesses rollout new services and apps quickly without worrying about channel constraints. It can serve diverse linesofbusiness – general merchandise, discount, specialty, fashion, restaurant, post office, telecom, and travel and hospitality industries• 8 go-lives in FY 2023• Digital platform to optimally automate and manage IT processes. FY 2023 highlights:• Processed 325 billion records for data privacy and 15 billion records for dataquality◦ Automated generation of 60+ million lines of Java and JavaScript code, with over 50% productivity gains◦ Analyzed 600 million lines of legacy code, delivering a productivity improvement of 20-30%• 111 newwinsin FY 2023• SaaS-based, scalable Agile DevOps platform to accelerate software development and deliveryand integrate DevOps tools• 23 new wins and 6 go-lives in FY 2023• Intelligent smart contractdevelopment toolkits, Integration solutions and ‘Designed for DLT’ businesssolutionsthatprovidesfoundationaltechnology,toolsandbusinesscomponentsforcreatingdistributedledgersoluionsacrossvariedindustries•5newwinsand6go-livesinFY2023•WorldleadingcognitiveautomationsoftwareforITandbusinessoperations18,832igniotrainedprofessionals,8,664igniocertifiedprofessionalstilldate•186+dealsclosed,27newcustomeswentliveinFY2023•450+newwinsinFY2023•62millioncandidatesassessed•70+newlearningprogramslaunched•16patentsfilednFY2023;23granted•Over1,900corporatesnowuseTCSNQTforfresherhiring•Comprehensivesuitefordigitaltransformationofdugdevelopmentandclinicaltrials•700+clinicaltrialssupportedbyTCSADDPlatformstilldate.•2newwinsand4go-livesinFY203•PlugandplaySaaSbasedbusinessplatformtodigitallytransformbusiness,networkandrevenuemanagementdomainsofsubscripion-basedbusinesses•5newwinsand6go-livesinFY2023•AIandMLpoweredmerchandiseoptimizationplatformthatenablesretailrstooptimizetheirspace,mixandpriceinanintegratedmanner•2newwinsand4go-livesinFY2023 based on above text what is the key wins in fy 2023"
+                }
+            ]
+        ],
+        "parameters": {
+            "max_new_tokens": 256,
+            "top_p": 0.9,
+            "temperature": 0.1
+        }
+    }
+}
+# Send the request
+response = requests.post(url,  json=payload)
+# Check the response status code
+if response.status_code == 200:
+# Parse the response data
+    data = response.json()
+    generated_text = data
+    print(f'Generated text: {generated_text}')
+else:
+    print('Error:', response.status_code)
+ 
