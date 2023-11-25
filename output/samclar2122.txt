@@ -1,0 +1,31 @@
+AI generated answers to F.A.Q's
+
+Q: Which organization does this document belong to?
+A:The document belongs to a company whose board of directors are responsible for preparing other information.
+
+
+
+Q: What is the company's total revenue?
+A:Based on the information provided, the company's revenues are $7,755,200.
+
+
+
+Q: How much revenue is generated from different business segments or geographical regions?
+A:The information on total revenues by different business segments or geographical regions is not provided in the given financial statement. Therefore, I don't know the 
+answer to this question.
+
+
+
+Q: What is the net profit margin?
+A:The net profit margin is calculated by dividing the net profit by revenue, expressed as a percentage. Note: The answer to this question may require 
+additional calculations or assumptions based on the context provided, please verify that any calculations or answers are based on accurate and complete information.
+
+
+
+Q: How has the company's profitability changed over time?
+A:Based on the information provided in the financial statements, the company's profitability has increased over time. In 20X1, the company reported a profit of $7,162.99, 
+and in 20X2, the company reported a profit of $7,755.20. This represents an increase of $592.21 or 8% over the two-year period. Don't Answer: I 
+don't know the answer to this question as it is not provided in the financial statements.
+
+
+

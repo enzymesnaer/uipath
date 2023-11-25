@@ -1,0 +1,12 @@
+Processing 20231006_en.pdf
+ This document appears to be an annual report for Yaskawa Electric Corporation, a Japanese company listed on the Tokyo Stock Exchange. The document provides financial information, including income statements, balance sheets, and cash flow statements, as well as management's discussion and analysis of the company's financial performance.
+
+Inference or Key Points:
+
+* Yaskawa Electric Corporation is a leading manufacturer of automation systems, motion control products, and industrial robots.
+* The company has adopted International Tax Reform - Pillar 2 Model Rules (Revision of IAS 12) for accounting purposes.
+* Management believes that the adoption of this standard will improve the clarity and consistency of the company's financial statements.
+* There are no significant changes in the company's accounting policies or methods from the previous year.
+* The company does not provide forward-looking statements or make any commitments to achieve specific results.
+* The document does not mention any upcoming events or announcements related to the company's financial performance.
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
