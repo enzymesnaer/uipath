@@ -21,7 +21,7 @@ def send_whatsapp(output_file):
 if __name__ == "__main__":
     text_regex = re.compile(r'.*\.txt$', re.IGNORECASE)
     txt_files = [file for file in glob.glob('C:\\Users\\kolisn\\Documents\\Workspace\\hackathon\\MVP\\dropbox\\' + '*')
-                 if txt_regex.match(file)]
+                 if text_regex.match(file)]
 
     send_whatsapp(text_file)
 

@@ -6,7 +6,10 @@ from langchain.chains import ConversationalRetrievalChain
 from langchain.llms import CTransformers
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
+from twilio.rest import Client
 
+account_sid = 'AC03e77649f31d37eb2d902d3e4c906a97'
+auth_token = '61462ebc9c022ab5a11f2ded13a0f24b'
 
 def insert_line_breaks(input_string, words_per_line=25):
     words = input_string.split()
@@ -19,6 +22,20 @@ def insert_line_breaks(input_string, words_per_line=25):
 
     return result.strip()
 
+def send_whatsapp(output_file):
+    client = Client(account_sid, auth_token)
+    numbers = ['whatsapp:+918285281211']
+    
+    with open('output/audio_summary.txt') as f:
+        lines=f.readlines()
+    file1= ''.join(lines)[:1598]
+
+    for number in numbers:
+        message = client.messages.create(
+        from_='whatsapp:+14155238886',
+        body = file1,
+        to   = number
+        )
 
 def process_pdf(file_path):
     loaders = [PyPDFLoader(file_path)]
@@ -77,6 +94,8 @@ def process_pdf(file_path):
     with open(txt_file_path, 'w') as text_file:
         # Write the content to the file
         text_file.write(txtcontent)
+        send_whatsapp(txt_file_path)
+
 
 
 if __name__ == "__main__":
